@@ -3,9 +3,9 @@ import math
 from matplotlib import pyplot as plt
 
 if __name__ == "__main__":
-    def get_arc_cord(p_oirgin, p_end, t, mu=0, sigma=0, delta=2):
+    def get_arc_cord(p_oirgin, p_end, t, mu=0, sigma=0, delta=0.001):
         theta = get_theta(p_oirgin, p_end)
-        D = 1
+        D = 500
         t0 = 0
         w = 1 / 2 * (1 + math.erf((np.log(t - t0) - mu) / (sigma * np.sqrt(2))))
         # print(w)
@@ -23,7 +23,7 @@ if __name__ == "__main__":
     def get_displacement_cord(delta, D, theta, w, phi):
         if delta != 0:
             displacement_x = D / delta * (np.sin(phi) - np.sin(theta - delta / 2))
-            displacement_y = D / delta * (np.cos(phi) - np.cos(theta - delta / 2))
+            displacement_y = D / delta * -(np.cos(phi) - np.cos(theta - delta / 2))
         else:
             displacement_x = w * np.cos(theta)
             displacement_y = w * np.sin(theta)
@@ -41,7 +41,7 @@ if __name__ == "__main__":
     p1 = Point(100, 100, 3)
     p2 = Point(500, 200, 20)
     p3 = Point(500, 500, 3)
-    x, y = get_arc_cord(p1, p2, 1.0, mu=0.1, sigma=0.4, delta=0.1)
+    x, y = get_arc_cord(p1, p2, 3, mu=0.1, sigma=0.4, delta=-2)
     print(x, y)
     p3 = Point(x, y, 3)
 
