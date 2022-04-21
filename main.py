@@ -27,10 +27,10 @@ class Strokes:
 
     def get_trejectory(self):
         trejectory = []
-        for t in range(800):
+        for t in range(50):
             point_cord = np.array([0.0, 0.0, 0.0])
             for j in range(len(self.points) - 1):
-                cord = get_arc_cord(self.points[j], self.points[j+1], t/100, mu=self.mus[j], sigma=self.sigmas[j], delta=self.deltas[j], alpha=self.alphas[j], t0=self.t0s[j])
+                cord = get_arc_cord(self.points[j], self.points[j+1], t/10, mu=self.mus[j], sigma=self.sigmas[j], delta=self.deltas[j], alpha=self.alphas[j], t0=self.t0s[j])
                 cord = np.array(cord)
                 point_cord += cord
             point_cord += np.array(self.points[0].cord3d)
@@ -176,21 +176,22 @@ if __name__ == "__main__":
 
     plt.rcParams["figure.figsize"] = [8.00, 8.50]
     plt.rcParams["figure.autolayout"] = True
-    x = [5]
-    y = [5]
-    plt.xlim(-0, 600)
-    plt.ylim(-0, 600)
-    plt.grid()
+    ax = plt.axes(projection='3d')
+
+    ax.set_xlim3d(0, 600)
+    ax.set_ylim3d(0, 600)
+    ax.set_zlim3d(100, -100)
+
     # plt.plot(p1.x, p1.y, marker="o", markersize=p1.width, markeredgecolor="black", markerfacecolor="black")
     # plt.plot(p2.x, p2.y, marker="o", markersize=p2.width, markeredgecolor="black", markerfacecolor="black")
     for i in trejectory1:
-        plt.plot(i[0], i[1], marker="o", markersize=i[2], markeredgecolor="black", markerfacecolor="black")
+        plt.plot(i[0], i[1], i[2], marker="o", markersize=2, markeredgecolor="red", markerfacecolor="red")
     for i in trejectory2:
-        plt.plot(i[0], i[1], marker="o", markersize=i[2], markeredgecolor="black", markerfacecolor="black")
+        plt.plot(i[0], i[1], i[2], marker="o", markersize=2, markeredgecolor="red", markerfacecolor="red")
     for i in trejectory3:
-        plt.plot(i[0], i[1], marker="o", markersize=i[2], markeredgecolor="black", markerfacecolor="black")
+        plt.plot(i[0], i[1], i[2], marker="o", markersize=2, markeredgecolor="red", markerfacecolor="red")
     for i in trejectory4:
-        plt.plot(i[0], i[1], marker="o", markersize=i[2], markeredgecolor="black", markerfacecolor="black")
+        plt.plot(i[0], i[1], i[2], marker="o", markersize=2, markeredgecolor="red", markerfacecolor="red")
     for i in trejectory5:
-        plt.plot(i[0], i[1], marker="o", markersize=i[2], markeredgecolor="black", markerfacecolor="black")
+        plt.plot(i[0], i[1], i[2], marker="o", markersize=2, markeredgecolor="red", markerfacecolor="red")
     plt.show()
