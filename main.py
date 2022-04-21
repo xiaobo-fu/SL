@@ -27,26 +27,26 @@ class Strokes:
 
     def get_trejectory(self):
         trejectory = []
-        for t in range(300):
+        for t in range(800):
             point_cord = np.array([0.0, 0.0, 0.0])
             for j in range(len(self.points) - 1):
                 cord = get_arc_cord(self.points[j], self.points[j+1], t/100, mu=self.mus[j], sigma=self.sigmas[j], delta=self.deltas[j], alpha=self.alphas[j], t0=self.t0s[j])
                 cord = np.array(cord)
                 point_cord += cord
-            point_cord += np.array(self.points[j].cord3d)
+            point_cord += np.array(self.points[0].cord3d)
             trejectory.append(point_cord)
         return trejectory
 
 
 if __name__ == "__main__":
-    def get_arc_cord(p_oirgin, p_end, t, mu=0, sigma=0, delta=0.001, alpha=0, t0=0):
+    def get_arc_cord(p_oirgin, p_end, t, mu=0.1, sigma=0.4, delta=0.001, alpha=0, t0=0):
         norm = get_norm(p_oirgin, p_end)
         theta = get_theta(p_oirgin, p_end)
         D = norm * delta / 2 / np.sin(delta/2)
-        if 0 >= t0:
+        if t >= t0:
             w = 1 / 2 * (1 + math.erf((np.log(t - t0) - mu) / (sigma * np.sqrt(2))))
         else:
-            w = 0
+            return 0, 0, 0
         # print(w)
         phi = theta - delta / 2 + delta * w
         # print(phi)
@@ -96,29 +96,101 @@ if __name__ == "__main__":
                          [2 * (bd + ac), 2 * (cd - ab), aa + dd - bb - cc]])
 
 
-    p1 = Point(500, 500, 50)
-    p2 = Point(100, 100, 10)
-    p3 = Point(0, 200, 10)
+    p11 = Point(109, 500, 1)
+    p12 = Point(170, 479, 70)
+    p13 = Point(160, 480, 1)
 
-    points = [p1, p2, p3]
-    mus = [0.1, 0.1]
-    sigmas = [0.4, 0.4]
-    deltas = [1, 0.1]
-    alphas = [-0.2, 0.2]
-    t0s = [0, 0]
+    points1 = [p11, p12, p13]
+    mus1 = [0.1, 0.1]
+    sigmas1 = [0.4, 0.4]
+    deltas1 = [-0.2, -0.6]
+    alphas1 = [-0.2, -0.2]
+    t0s1 = [0, 0.6]
 
-    stroke = Strokes(points, mus, sigmas, deltas, alphas, t0s)
-    trejectory = stroke.get_trejectory()
+    stroke1 = Strokes(points1, mus1, sigmas1, deltas1, alphas1, t0s1)
+    trejectory1 = stroke1.get_trejectory()
+
+    p21 = Point(72, 367, 1)
+    p22 = Point(102, 326, 30)
+    p23 = Point(176, 112, 50)
+    p24 = Point(214, 340, 1)
+
+    points2 = [p21, p22, p23, p24]
+    mus2 = [0.1, 0.1, 0.1]
+    sigmas2 = [0.4, 0.4, 0.4]
+    deltas2 = [-1, 0.6, -0.6]
+    alphas2 = [-0.2, -0.2, -0.2]
+    t0s2 = [0, 0.4, 3]
+
+    stroke2 = Strokes(points2, mus2, sigmas2, deltas2, alphas2, t0s2)
+    trejectory2 = stroke2.get_trejectory()
+
+    p31 = Point(235, 450, 1)
+    p32 = Point(269, 400, 50)
+    p33 = Point(283, 300, 30)
+    p34 = Point(520, 450, 30)
+    p35 = Point(376, 390, 0)
+
+    points3 = [p31, p32, p33, p34, p35]
+    mus3 = [0.1, 0.1, 0.1, 0.1]
+    sigmas3 = [0.4, 0.4, 0.4, 0.4]
+    deltas3 = [-2.5, 0.6, -2.5, -2.5]
+    alphas3 = [-0.2, -0.2, -0.2, 0.2]
+    t0s3 = [0, 0.4, 3, 4.7]
+
+    stroke3 = Strokes(points3, mus3, sigmas3, deltas3, alphas3, t0s3)
+    trejectory3 = stroke3.get_trejectory()
+
+    p41 = Point(383, 500, 0)
+    p42 = Point(409, 480, 100)
+    p43 = Point(390, 380, 10)
+    p44 = Point(500, 280, 50)
+    p45 = Point(230, 200, 0)
+
+    points4 = [p41, p42, p43, p44, p45]
+    mus4 = [0.1, 0.1, 0.1, 0.1]
+    sigmas4 = [0.4, 0.4, 0.4, 0.4]
+    deltas4 = [-2, 0.6, -1, -1.8]
+    alphas4 = [-0.2, -0.2, -0.2, 0.2]
+    t0s4 = [0, 0.4, 2, 2.5]
+
+    stroke4 = Strokes(points4, mus4, sigmas4, deltas4, alphas4, t0s4)
+    trejectory4 = stroke4.get_trejectory()
+
+    p51 = Point(320, 180, 1)
+    p52 = Point(380, 200, 2)
+    p53 = Point(540, 60, 4)
+
+    points5 = [p51, p52, p53]
+    mus5 = [0.1, 0.1]
+    sigmas5 = [0.4, 0.4]
+    deltas5 = [-1, -1]
+    alphas5 = [1, 1]
+    t0s5 = [0, 0.1]
+
+    stroke5 = Strokes(points5, mus5, sigmas5, deltas5, alphas5, t0s5)
+    trejectory5 = stroke5.get_trejectory()
+
+
+
 
     plt.rcParams["figure.figsize"] = [8.00, 8.50]
     plt.rcParams["figure.autolayout"] = True
     x = [5]
     y = [5]
-    plt.xlim(-200, 600)
-    plt.ylim(-200, 600)
+    plt.xlim(-0, 600)
+    plt.ylim(-0, 600)
     plt.grid()
     # plt.plot(p1.x, p1.y, marker="o", markersize=p1.width, markeredgecolor="black", markerfacecolor="black")
     # plt.plot(p2.x, p2.y, marker="o", markersize=p2.width, markeredgecolor="black", markerfacecolor="black")
-    for i in trejectory:
-        plt.plot(i[0], i[1], marker="o", markersize=20, markeredgecolor="black", markerfacecolor="black")
+    for i in trejectory1:
+        plt.plot(i[0], i[1], marker="o", markersize=i[2], markeredgecolor="black", markerfacecolor="black")
+    for i in trejectory2:
+        plt.plot(i[0], i[1], marker="o", markersize=i[2], markeredgecolor="black", markerfacecolor="black")
+    for i in trejectory3:
+        plt.plot(i[0], i[1], marker="o", markersize=i[2], markeredgecolor="black", markerfacecolor="black")
+    for i in trejectory4:
+        plt.plot(i[0], i[1], marker="o", markersize=i[2], markeredgecolor="black", markerfacecolor="black")
+    for i in trejectory5:
+        plt.plot(i[0], i[1], marker="o", markersize=i[2], markeredgecolor="black", markerfacecolor="black")
     plt.show()
